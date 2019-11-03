@@ -2,6 +2,7 @@ import styles from './index.css';
 import React from 'react';
 import { connect } from 'dva';
 import Dashboard from '@/components/Dashboard';
+import NewTweet from '@/components/NewTweet';
 
 
 
@@ -19,7 +20,7 @@ class App extends React.Component {
         {
           this.props.loading === true
             ? null
-            : <Dashboard/>
+            : <NewTweet/>
         }
       </div>
     );
