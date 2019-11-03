@@ -1,4 +1,6 @@
-import {saveLikeToggle} from '@/utils/api';
+import {saveLikeToggle,saveTweet} from '@/utils/api';
+
+
 
 
 
@@ -26,6 +28,26 @@ export default {
             : state[action.id].likes.concat([action.authUser])
         }
       }
+    },
+    addTweet (state, action) {
+      const {tweet} = action;
+
+      let replyingTo = {};
+      if (tweet.replyingTo !== null) {
+        replyingTo = {
+          [tweet.replyingTo] : {
+            ...state[tweet.replyingTo],
+            replies: state[tweet.replyingTo].replies.concat([tweet.id])
+          }
+        }
+      }
+
+      return {
+        ...state,
+        [action.tweet.id]: action.tweet,
+        ...replyingTo,
+      }
+
     }
   },
   effects: {
@@ -40,5 +62,12 @@ export default {
         alert('Try Again!');
       }
     },
+    *handleAddTweet({ type, payload: {text,replyingTo} }, { put, call, select }) {
+      const author = yield select(state => state.authUser);
+
+      const tweet = yield call(saveTweet,text,author,replyingTo);
+      yield put({type: 'addTweet',tweet});
+
+    }
   },
 }

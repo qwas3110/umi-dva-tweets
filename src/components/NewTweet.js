@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'dva';
+
 
 class NewTweet extends Component {
   state = {
@@ -12,13 +14,16 @@ class NewTweet extends Component {
     }))
   }
   handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { text } = this.state
+    const { text } = this.state;
+    const { dispatch, id } = this.props;
+
+    dispatch({type: 'tweets/handleAddTweet'});
 
     // todo: Add Tweet to Store
 
-    console.log('New Tweet: ', text)
+    console.log('New Tweet: ', text,id);
 
     this.setState(() => ({
       text: ''
@@ -59,4 +64,6 @@ class NewTweet extends Component {
   }
 }
 
-export default NewTweet
+
+
+export default connect()(NewTweet);
