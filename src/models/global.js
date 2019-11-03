@@ -3,6 +3,7 @@ import {getInitialData} from '@/utils/api';
 
 
 
+
 export default {
   namespace: 'global', // 默认与文件名相同
   state: {},

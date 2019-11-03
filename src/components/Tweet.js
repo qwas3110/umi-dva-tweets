@@ -8,8 +8,17 @@ import { TiArrowBackOutline, TiHeartOutline, TiHeartFullOutline} from 'react-ico
 class Tweet extends Component {
   handleLike = (e) => {
     e.preventDefault()
+    const { tweet, authUser } = this.props;
 
     // todo: Handle Like Tweet
+    this.props.dispatch({
+      type: 'tweets/handleToggleTweet',
+      payload:{
+        id: tweet.id,
+        hasLiked: tweet.hasLiked,
+        authUser
+      }
+    })
   }
   toParent = (e, id) => {
     e.preventDefault()

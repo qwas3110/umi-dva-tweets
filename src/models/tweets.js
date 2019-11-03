@@ -1,3 +1,5 @@
+import {saveLikeToggle} from '@/utils/api';
+
 
 
 export default {
@@ -13,10 +15,30 @@ export default {
         ...state,
         ...action.tweets
       }
+    },
+    toggleTweet(state,action) {
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          likes: action.hasLiked === true
+            ? state[action.id].likes.filter(uid => uid !== action.authUser)
+            : state[action.id].likes.concat([action.authUser])
+        }
+      }
     }
   },
   effects: {
-    *fetch({ type, payload }, { put, call, select }) {
+    *handleToggleTweet({ type, payload:{id,hasLiked,authUser} }, { put, call, select }) {
+      yield put({type: 'toggleTweet', id,hasLiked,authUser});
+
+      try {
+        yield call(saveLikeToggle, id,hasLiked,authUser)
+      } catch (e) {
+        console.warn("Error",e);
+        yield put({type: 'toggleTweet', id,hasLiked,authUser});
+        alert('Try Again!');
+      }
     },
   },
 }
