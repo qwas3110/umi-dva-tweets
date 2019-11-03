@@ -1,10 +1,12 @@
 import styles from './index.css';
 import React from 'react';
+import App from '../pages/index';
 
-function BasicLayout(props) {
+
+function BasicLayout() {
   return (
     <div>
-      {props.children}
+      <App/>
     </div>
   );
 }

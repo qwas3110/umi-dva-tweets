@@ -4,7 +4,8 @@ import { connect } from 'dva';
 import Dashboard from '@/components/Dashboard';
 import NewTweet from '@/components/NewTweet';
 import TweetPage from '@/components/TweetPage';
-
+import {Route} from 'umi';
+import Nav from '@/components/Nav';
 
 class App extends React.Component {
 
@@ -16,11 +17,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container'>
+        <Nav/>
         {
           this.props.loading === true
             ? null
-            : <TweetPage match={{params: {id: '8xf0y6ziyjabvozdd253nd'}}}/>
+            : <div>
+                <Route path='/' exact component={Dashboard} />
+                <Route path='/tweet/:id' component={TweetPage} />
+                <Route path='/new' component={NewTweet} />
+              </div>
         }
       </div>
     );
