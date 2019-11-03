@@ -17,9 +17,10 @@ class NewTweet extends Component {
     e.preventDefault();
 
     const { text } = this.state;
-    const { dispatch, id } = this.props;
+    const { dispatch, id,author } = this.props;
+    const replyingTo = id;
 
-    dispatch({type: 'tweets/handleAddTweet'});
+    dispatch({type: 'tweets/handleAddTweet',payload: {text,author,replyingTo}});
 
     // todo: Add Tweet to Store
 
@@ -66,4 +67,8 @@ class NewTweet extends Component {
 
 
 
-export default connect()(NewTweet);
+export default connect(
+  ({authUser}) => ({
+    author: authUser
+  })
+)(NewTweet);

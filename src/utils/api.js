@@ -19,6 +19,6 @@ export function saveLikeToggle (info) {
   return _saveLikeToggle(info)
 }
 
-export function saveTweet (info) {
-  return _saveTweet(info)
+export function saveTweet (text, author, replyingTo) {
+  return _saveTweet(text, author, replyingTo)
 }

@@ -30,7 +30,8 @@ export default {
       }
     },
     addTweet (state, action) {
-      const {tweet} = action;
+      const tweet = action.tweet;
+
 
       let replyingTo = {};
       if (tweet.replyingTo !== null) {
@@ -62,8 +63,8 @@ export default {
         alert('Try Again!');
       }
     },
-    *handleAddTweet({ type, payload: {text,replyingTo} }, { put, call, select }) {
-      const author = yield select(state => state.authUser);
+    *handleAddTweet({ type, payload: {text,author,replyingTo} }, { put, call, select }) {
+      // const author = yield select(state => state.authUser);
 
       const tweet = yield call(saveTweet,text,author,replyingTo);
       yield put({type: 'addTweet',tweet});

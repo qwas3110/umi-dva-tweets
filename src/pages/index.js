@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'dva';
 import Dashboard from '@/components/Dashboard';
 import NewTweet from '@/components/NewTweet';
-
+import TweetPage from '@/components/TweetPage';
 
 
 class App extends React.Component {
@@ -20,7 +20,7 @@ class App extends React.Component {
         {
           this.props.loading === true
             ? null
-            : <NewTweet/>
+            : <TweetPage match={{params: {id: '8xf0y6ziyjabvozdd253nd'}}}/>
         }
       </div>
     );
